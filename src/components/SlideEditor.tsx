@@ -6,6 +6,7 @@ const { saveAs } = FileSaver;
 import PptxGenJS from "pptxgenjs";
 import { SlideCanvas } from "./SlideCanvas";
 import { slideRenderers, TOTAL_SLIDES } from "@/slides/slidesData";
+import { buildTextPptx } from "@/lib/pptxTextExport";
 
 const btnStyle: React.CSSProperties = {
   background: "#2a2e2c",
@@ -22,6 +23,7 @@ export function SlideEditor() {
   const [current, setCurrent] = useState(0);
   const [exporting, setExporting] = useState(false);
   const [exportingPptx, setExportingPptx] = useState(false);
+  const [exportingPptxText, setExportingPptxText] = useState(false);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -82,6 +84,15 @@ export function SlideEditor() {
       await pptx.writeFile({ fileName: "ksenia-rusnak-carousel.pptx" });
     } finally {
       setExportingPptx(false);
+    }
+  };
+
+  const exportPptxText = async () => {
+    setExportingPptxText(true);
+    try {
+      await buildTextPptx();
+    } finally {
+      setExportingPptxText(false);
     }
   };
 
@@ -192,6 +203,18 @@ export function SlideEditor() {
               }}
             >
               {exportingPptx ? "PPTX…" : "Завантажити PPTX (для Canva)"}
+            </button>
+            <button
+              onClick={exportPptxText}
+              disabled={exportingPptxText}
+              style={{
+                ...btnStyle,
+                background: "transparent",
+                color: "var(--cream)",
+                border: "1px solid var(--cream)",
+              }}
+            >
+              {exportingPptxText ? "PPTX…" : "PPTX (редагований текст)"}
             </button>
           </div>
         </header>
