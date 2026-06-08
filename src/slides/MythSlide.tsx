@@ -30,11 +30,13 @@ export function MythSlide({
       : tone === "sage"
       ? "slide-bg-sage"
       : tone === "cream"
-      ? "slide-bg-cream"
+      ? "slide-bg-bone"
       : "";
 
   const fmt = (n: number) => String(n).padStart(2, "0");
   const lightText = tone !== "cream";
+  const fg = lightText ? "var(--cream)" : "var(--forest)";
+  const ghostColor = lightText ? "var(--cream)" : "var(--sage-mid)";
 
   return (
     <div
@@ -43,12 +45,16 @@ export function MythSlide({
         isPhoto && bgImage ? { background: `url(${bgImage}) center/cover` } : undefined
       }
     >
+      <div className="brand-vert" style={{ color: fg }}>
+        міф · {fmt(mythNumber)}
+      </div>
+
       <span
         className="ghost-numeral"
         style={{
-          right: -60,
-          bottom: -180,
-          color: lightText ? "var(--cream)" : "var(--sage)",
+          right: -80,
+          bottom: -220,
+          color: ghostColor,
         }}
       >
         {fmt(mythNumber)}
@@ -57,27 +63,49 @@ export function MythSlide({
       <div
         className="arc-deco"
         style={{
-          width: 1100,
-          height: 1100,
-          left: -420,
-          top: -380,
-          color: lightText ? "var(--cream)" : "var(--sage)",
+          width: 1400,
+          height: 1400,
+          left: -520,
+          top: -480,
+          color: ghostColor,
+        }}
+      />
+      <div
+        className="arc-deco"
+        style={{
+          width: 320,
+          height: 320,
+          left: 120,
+          top: 120,
+          color: ghostColor,
+          opacity: 0.12,
         }}
       />
 
-      <div className="slide-padding">
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-          <SlideTag>міф {fmt(mythNumber)}</SlideTag>
+      <div className="slide-padding" style={{ color: fg }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <SlideTag variant="chip">
+            міф · {fmt(mythNumber)}
+          </SlideTag>
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            <span className="slash-divider" style={{ width: 40 }} />
+            <span className="brand-stamp">ksenia rusnak</span>
+          </div>
         </div>
 
-        <div style={{ marginTop: 56, maxWidth: 920 }}>
+        <div style={{ marginTop: 72, maxWidth: 940 }}>
+          <div
+            className="slide-accent"
+            style={{ fontSize: 38, opacity: 0.75, marginBottom: 18 }}
+          >
+            міф номер
+            <span style={{ fontFamily: "var(--font-display)", fontSize: 38, marginLeft: 16 }}>
+              {fmt(mythNumber)}
+            </span>
+          </div>
           <h2
             className="slide-title"
-            style={{
-              fontSize: 92,
-              lineHeight: 0.95,
-              color: lightText ? "var(--cream)" : "var(--forest)",
-            }}
+            style={{ fontSize: 88, lineHeight: 0.98 }}
           >
             {title}
           </h2>
@@ -86,22 +114,23 @@ export function MythSlide({
         <div
           className="slide-body"
           style={{
-            marginTop: 48,
-            maxWidth: 920,
-            color: lightText ? "var(--cream)" : "var(--ink)",
+            marginTop: 52,
+            maxWidth: 940,
+            color: fg,
+            opacity: lightText ? 0.94 : 1,
           }}
         >
           {body}
         </div>
 
         {highlight && (
-          <div style={{ marginTop: "auto", marginBottom: 120, maxWidth: 880 }}>
+          <div style={{ marginTop: "auto", marginBottom: 130, maxWidth: 900 }}>
             <div className="quote-box">{highlight}</div>
           </div>
         )}
       </div>
 
-      <div style={{ color: lightText ? "var(--cream)" : "var(--forest)" }}>
+      <div style={{ color: fg }}>
         <SlideChrome index={index} total={total} />
       </div>
     </div>

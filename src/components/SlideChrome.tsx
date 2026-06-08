@@ -1,5 +1,3 @@
-import { Spark } from "./Spark";
-
 export function SlideChrome({
   index,
   total,
@@ -16,18 +14,21 @@ export function SlideChrome({
       className="slide-chrome"
       style={{
         position: "absolute",
-        right: 56,
+        right: 64,
         bottom: 56,
+        left: 64,
         display: "flex",
         alignItems: "center",
-        gap: 18,
+        justifyContent: "space-between",
         color: "currentColor",
       }}
     >
+      <span className="brand-mark">k · rusnak — quiet luxury</span>
       <span className="counter-pill">
-        {fmt(index)}/{fmt(total)}
+        <span style={{ opacity: 0.55 }}>{fmt(index)}</span>
+        <span className="slash-divider" style={{ width: 24, margin: "0 4px 4px" }} />
+        <span>{fmt(total)}</span>
       </span>
-      <Spark size={26} />
     </div>
   );
 }
@@ -35,9 +36,14 @@ export function SlideChrome({
 export function SlideTag({
   children,
   className = "",
+  variant = "bracket",
 }: {
   children: React.ReactNode;
   className?: string;
+  variant?: "bracket" | "chip";
 }) {
+  if (variant === "chip") {
+    return <span className={`sage-chip ${className}`}>{children}</span>;
+  }
   return <span className={`tag-bracket ${className}`}>[{children}]</span>;
 }

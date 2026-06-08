@@ -7,68 +7,86 @@ export function Slide11CTA({ index, total }: { index: number; total: number }) {
       className="slide dark-overlay"
       style={{ background: `url(${ctaBg}) center/cover` }}
     >
-      <div className="slide-padding">
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <SlideTag>міф 10</SlideTag>
-          <SlideTag>фінал</SlideTag>
+      <div className="brand-vert" style={{ color: "var(--cream)" }}>
+        міф · 10
+      </div>
+      <div className="corner-frame" style={{ left: 56, top: 56, color: "var(--cream)" }} />
+
+      <div className="slide-padding" style={{ color: "var(--cream)" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <SlideTag variant="chip">міф · 10 — фінал</SlideTag>
+          <span className="brand-stamp">ksenia rusnak</span>
         </div>
 
-        <h2
-          className="slide-title"
-          style={{
-            fontSize: 88,
-            color: "var(--cream)",
-            marginTop: 56,
-            maxWidth: 920,
-            lineHeight: 0.98,
-          }}
-        >
-          Власник<br />має контролювати все
-        </h2>
+        <div style={{ marginTop: 64, maxWidth: 920 }}>
+          <div className="slide-accent" style={{ fontSize: 40, opacity: 0.8, marginBottom: 14 }}>
+            власник
+          </div>
+          <h2 className="slide-title" style={{ fontSize: 92, lineHeight: 0.98 }}>
+            має{" "}
+            <span className="slide-accent" style={{ fontSize: 92 }}>
+              контролювати
+            </span>
+            <br />
+            все
+          </h2>
+        </div>
 
-        <p
-          className="slide-body"
-          style={{
-            marginTop: 40,
-            color: "var(--cream)",
-            maxWidth: 900,
-          }}
-        >
+        <p className="slide-body" style={{ marginTop: 44, maxWidth: 900 }}>
           Мікроменеджмент власника — це головне гальмо для зростання компанії.{" "}
           <strong>Завдання фаундера — стратегія та візія.</strong>
         </p>
 
-        <div style={{ marginTop: "auto", marginBottom: 120 }}>
+        <div style={{ marginTop: "auto", marginBottom: 140 }}>
           <p
             style={{
-              color: "var(--cream)",
               fontFamily: "var(--font-body)",
-              fontSize: 30,
+              fontSize: 26,
               opacity: 0.9,
-              marginBottom: 28,
-              lineHeight: 1.35,
+              marginBottom: 24,
+              lineHeight: 1.4,
+              maxWidth: 760,
+              letterSpacing: "0.02em",
             }}
           >
-            Хочете перетворити маркетинг на автономний актив?<br />
-            Напишіть у директ слово
+            Хочете перетворити маркетинг на{" "}
+            <span className="slide-accent" style={{ fontSize: 30 }}>
+              автономний актив
+            </span>
+            ?<br />Напишіть у директ слово
           </p>
 
           <div
             style={{
-              display: "inline-block",
-              background: "var(--cream)",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 28,
+              background: "var(--bone)",
               color: "var(--forest)",
-              padding: "28px 64px",
-              borderRadius: 18,
-              fontFamily: "var(--font-display)",
-              fontWeight: 700,
-              fontSize: 84,
-              letterSpacing: "0.04em",
-              textTransform: "uppercase",
-              boxShadow: "0 30px 60px -30px rgba(0,0,0,0.5)",
+              padding: "26px 56px 26px 44px",
+              borderRadius: 4,
+              boxShadow: "0 30px 60px -30px rgba(0,0,0,0.55)",
+              borderLeft: "3px solid var(--sage)",
             }}
           >
-            АУДИТ
+            <div
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 700,
+                fontSize: 76,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                lineHeight: 1,
+              }}
+            >
+              АУДИТ
+            </div>
+            <div
+              className="slide-accent"
+              style={{ fontSize: 30, color: "var(--sage)" }}
+            >
+              →
+            </div>
           </div>
         </div>
       </div>
