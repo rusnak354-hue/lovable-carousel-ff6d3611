@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { toPng } from "html-to-image";
 import JSZip from "jszip";
-import { saveAs } from "file-saver";
+import FileSaver from "file-saver";
+const { saveAs } = FileSaver;
 import { SlideCanvas } from "./SlideCanvas";
 import { slideRenderers, TOTAL_SLIDES } from "@/slides/slidesData";
 
