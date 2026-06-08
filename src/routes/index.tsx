@@ -1,29 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { SlideEditor } from "@/components/SlideEditor";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "Ксенія Руснак — 10 міфів | Карусель" },
+      { name: "description", content: "Карусель 1080×1440 з 11 слайдів про маркетингові міфи в фірмовому стилі." },
+      { property: "og:title", content: "Ксенія Руснак — 10 міфів" },
+      { property: "og:description", content: "Карусель 1080×1440 з 11 слайдів про маркетингові міфи." },
     ],
   }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
+  return <SlideEditor />;
 }
