@@ -4,19 +4,23 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/*
- * Design system definition.
- *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
- */
+/* Ksenia Rusnak — Quiet Luxury / Forest brand system */
+
+@font-face {
+  font-family: "Calmius Sans";
+  src: url("/fonts/CalmiusSansLow.otf") format("opentype");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Evolventa";
+  src: url("/fonts/Evolventa-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
@@ -59,18 +63,27 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-forest: var(--forest);
+  --color-sage: var(--sage);
+  --color-olive: var(--olive);
+  --color-olive-light: var(--olive-light);
+  --color-cream: var(--cream);
+  --color-milk: var(--milk);
+  --color-ink: var(--ink);
+  --font-display: "Calmius Sans", "Evolventa", sans-serif;
+  --font-body: "Evolventa", "Manrope", system-ui, sans-serif;
 }
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --background: oklch(0.96 0.01 100);
+  --foreground: oklch(0.18 0.02 150);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.35 0.05 150);
+  --primary-foreground: oklch(0.98 0.01 90);
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
   --muted: oklch(0.968 0.007 247.896);
@@ -95,6 +108,15 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+
+  /* Brand tokens */
+  --forest: #2f4a3a;
+  --sage: #5b7a6a;
+  --olive: #8a9a7b;
+  --olive-light: #b8c5a8;
+  --cream: #fffbf3;
+  --milk: #f3efe5;
+  --ink: #111111;
 }
 
 .dark {
@@ -138,7 +160,120 @@
   }
 
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    background-color: var(--milk);
+    color: var(--ink);
+    font-family: var(--font-body);
   }
+}
+
+/* ===== Slide system (1080 x 1440) ===== */
+
+.slide {
+  position: relative;
+  width: 1080px;
+  height: 1440px;
+  overflow: hidden;
+  font-family: var(--font-body);
+  color: var(--cream);
+  isolation: isolate;
+}
+
+.slide-bg-forest { background-color: var(--forest); }
+.slide-bg-sage   { background-color: var(--sage); }
+.slide-bg-cream  { background-color: var(--cream); color: var(--ink); }
+.slide-bg-milk   { background-color: var(--milk); color: var(--ink); }
+
+.slide-padding {
+  position: absolute;
+  inset: 64px;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
+}
+
+.slide-eyebrow {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 28px;
+  letter-spacing: 0.04em;
+  opacity: 0.85;
+}
+
+.slide-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 1.35;
+}
+
+.slide-body strong { font-weight: 700; }
+.slide-body em { font-style: italic; opacity: 0.9; }
+
+.tag-bracket {
+  font-family: var(--font-body);
+  font-size: 26px;
+  letter-spacing: 0.04em;
+  opacity: 0.85;
+}
+
+.counter-pill {
+  font-family: var(--font-body);
+  font-size: 24px;
+  letter-spacing: 0.12em;
+  padding: 10px 24px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0.9;
+}
+
+.quote-box {
+  background: var(--cream);
+  color: var(--ink);
+  border-radius: 18px;
+  padding: 36px 42px;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 1.3;
+  box-shadow: 0 30px 60px -30px rgba(0,0,0,0.35);
+}
+
+.ghost-numeral {
+  position: absolute;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 880px;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  opacity: 0.08;
+  pointer-events: none;
+  user-select: none;
+}
+
+.dark-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20,30,25,0.55) 0%, rgba(20,30,25,0.65) 100%);
+  z-index: 1;
+}
+
+.slide > .slide-padding,
+.slide > .slide-chrome { z-index: 2; }
+
+.arc-deco {
+  position: absolute;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  opacity: 0.25;
+  pointer-events: none;
 }
