@@ -3,6 +3,7 @@ import { toPng } from "html-to-image";
 import JSZip from "jszip";
 import FileSaver from "file-saver";
 const { saveAs } = FileSaver;
+import PptxGenJS from "pptxgenjs";
 import { SlideCanvas } from "./SlideCanvas";
 import { slideRenderers, TOTAL_SLIDES } from "@/slides/slidesData";
 
@@ -20,6 +21,7 @@ const btnStyle: React.CSSProperties = {
 export function SlideEditor() {
   const [current, setCurrent] = useState(0);
   const [exporting, setExporting] = useState(false);
+  const [exportingPptx, setExportingPptx] = useState(false);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -52,6 +54,34 @@ export function SlideEditor() {
       saveAs(out, "ksenia-rusnak-carousel.zip");
     } finally {
       setExporting(false);
+    }
+  };
+
+  const exportPptx = async () => {
+    setExportingPptx(true);
+    try {
+      const pptx = new PptxGenJS();
+      // 1080x1440 px @ 96dpi = 11.25" x 15"
+      pptx.defineLayout({ name: "IG_1080x1440", width: 11.25, height: 15 });
+      pptx.layout = "IG_1080x1440";
+      pptx.title = "Ксенія Руснак — 10 міфів";
+
+      for (let i = 0; i < TOTAL_SLIDES; i++) {
+        const node = document.getElementById(`export-slide-${i}`);
+        if (!node) continue;
+        const dataUrl = await toPng(node, {
+          width: 1080,
+          height: 1440,
+          pixelRatio: 2,
+          cacheBust: true,
+        });
+        const slide = pptx.addSlide();
+        slide.background = { data: dataUrl };
+      }
+
+      await pptx.writeFile({ fileName: "ksenia-rusnak-carousel.pptx" });
+    } finally {
+      setExportingPptx(false);
     }
   };
 
@@ -150,6 +180,18 @@ export function SlideEditor() {
               }}
             >
               {exporting ? "Експорт…" : "Завантажити PNG (zip)"}
+            </button>
+            <button
+              onClick={exportPptx}
+              disabled={exportingPptx}
+              style={{
+                ...btnStyle,
+                background: "var(--cream)",
+                color: "#1a1d1b",
+                fontWeight: 600,
+              }}
+            >
+              {exportingPptx ? "PPTX…" : "Завантажити PPTX (для Canva)"}
             </button>
           </div>
         </header>
