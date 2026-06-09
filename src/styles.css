@@ -390,3 +390,196 @@
   border: 1px solid currentColor;
   opacity: 0.55;
 }
+
+/* ===== Extended design-system elements (from reference packs) ===== */
+
+/* Numbered pill — large rounded rectangle with serif numeral + body text */
+.numbered-pill {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 22px 32px;
+  background: var(--bone);
+  color: var(--ink);
+  border-radius: 999px;
+  box-shadow: 0 18px 40px -28px rgba(0, 0, 0, 0.45);
+}
+.numbered-pill--dark {
+  background: var(--forest-deep);
+  color: var(--cream);
+}
+.numbered-pill__num {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  min-width: 64px;
+}
+.numbered-pill__num::after {
+  content: ".";
+}
+.numbered-pill__text {
+  font-family: var(--font-body);
+  font-size: 22px;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+}
+
+/* Outline arch (oversized decorative arch behind content) */
+.arch-shape {
+  position: absolute;
+  border: 1.5px solid currentColor;
+  border-top-left-radius: 9999px;
+  border-top-right-radius: 9999px;
+  border-bottom: none;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* Solid arch panel (filled half-pill background block) */
+.arch-panel {
+  position: absolute;
+  border-top-left-radius: 9999px;
+  border-top-right-radius: 9999px;
+  pointer-events: none;
+}
+
+/* Oval / arch photo frame (portrait inside arch) */
+.oval-photo-frame {
+  border-top-left-radius: 9999px;
+  border-top-right-radius: 9999px;
+  overflow: hidden;
+  background: var(--bone);
+}
+
+/* Circle photo frame */
+.circle-photo {
+  border-radius: 9999px;
+  overflow: hidden;
+  background: var(--bone);
+}
+
+/* Bookmark "SALVE este post" mark */
+.bookmark-mark {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: 110px;
+  height: 150px;
+  border: 1.5px solid currentColor;
+  border-bottom: none;
+  opacity: 0.85;
+}
+.bookmark-mark::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 38px;
+  background:
+    linear-gradient(135deg, transparent 49%, currentColor 49% 52%, transparent 52%) left / 50% 100% no-repeat,
+    linear-gradient(225deg, transparent 49%, currentColor 49% 52%, transparent 52%) right / 50% 100% no-repeat;
+}
+
+/* Big outline word (background watermark style heading) */
+.big-word-bg {
+  position: absolute;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 360px;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px currentColor;
+  opacity: 0.25;
+  pointer-events: none;
+  user-select: none;
+  text-transform: lowercase;
+}
+.big-word-bg--solid {
+  -webkit-text-stroke: 0;
+  color: currentColor;
+  opacity: 0.12;
+}
+
+/* Dashed/dotted frame with side ticks (the reference brackets) */
+.dashed-frame {
+  position: relative;
+  border: 1px dashed currentColor;
+  border-radius: 6px;
+  padding: 28px;
+}
+.dashed-frame::before,
+.dashed-frame::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 1px;
+  background: currentColor;
+}
+.dashed-frame::before { left: -18px; }
+.dashed-frame::after  { right: -18px; }
+
+/* Tag pill row (rounded outline chips like "експерт · CEO · ...") */
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 22px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 20px;
+  letter-spacing: 0.04em;
+  color: currentColor;
+  background: transparent;
+  white-space: nowrap;
+}
+.tag-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 16px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Calendar-style card frame (thin border, rounded, soft shadow) */
+.calendar-card {
+  background: var(--milk);
+  color: var(--ink);
+  border-radius: 18px;
+  border: 1px solid color-mix(in oklab, var(--ink) 12%, transparent);
+  padding: 28px 32px;
+  box-shadow: 0 30px 60px -36px rgba(0, 0, 0, 0.35);
+}
+
+/* Outline circle decoration */
+.circle-deco {
+  position: absolute;
+  border: 1px solid currentColor;
+  border-radius: 9999px;
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+/* Vertical title (rotated word stack, like AGENDA / PALAVRA) */
+.vertical-word {
+  position: absolute;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 220px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 0.9;
+  opacity: 0.18;
+  color: currentColor;
+  pointer-events: none;
+  user-select: none;
+}
