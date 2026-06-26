@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Карусель — автоматизація вбиває довіру</title>
+
+<link rel="stylesheet" href="_ds/ksenia-rusnak-design-system-da027f8d-33ee-4b70-ab5d-2a01e34f73b5/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/ksenia-rusnak-design-system-da027f8d-33ee-4b70-ab5d-2a01e34f73b5/tokens/colors.css">
+<link rel="stylesheet" href="_ds/ksenia-rusnak-design-system-da027f8d-33ee-4b70-ab5d-2a01e34f73b5/tokens/typography.css">
+<link rel="stylesheet" href="_ds/ksenia-rusnak-design-system-da027f8d-33ee-4b70-ab5d-2a01e34f73b5/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/ksenia-rusnak-design-system-da027f8d-33ee-4b70-ab5d-2a01e34f73b5/tokens/slide-system.css">
+<link rel="stylesheet" href="_ds/ksenia-rusnak-design-system-da027f8d-33ee-4b70-ab5d-2a01e34f73b5/styles.css">
+
+<style>
+  :root { --yellow: #ecc44e; --bar-bg: #0d100b; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: #11150f; color: var(--cream); font-family: var(--font-body); overflow: hidden; }
+  .app { display: grid; grid-template-rows: auto 1fr; height: 100vh; }
+
+  /* ---------- slide content helpers (shared with slides.js markup) ---------- */
+  .slide { box-shadow: none; }
+  .cover-photo, .bleed-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+  .slide .slide-padding, .slide .slide-footer { z-index: 3; }
+  .eyebrow-serif { font-family: var(--font-serif); font-style: italic; font-weight: 500; font-size: 40px; letter-spacing: 0.01em; opacity: 0.82; }
+  .lede { font-family: var(--font-body); font-size: 36px; line-height: 1.34; opacity: 0.9; }
+  .sage-chip.on-sage { background: var(--forest-deep); color: var(--cream); }
+  .photo-col { border-radius: 22px; overflow: hidden; background: var(--bone); box-shadow: 0 36px 70px -38px rgba(0,0,0,0.55); }
+  .photo-col img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cmp-block { padding: 18px 0; border-bottom: 1px solid var(--hairline-light); }
+  .cmp-block:first-of-type { padding-top: 4px; }
+  .cmp-row { display: flex; align-items: flex-start; gap: 22px; }
+  .cmp-row + .cmp-row { margin-top: 12px; }
+  .cmp-dot { flex: 0 0 auto; width: 15px; height: 15px; border-radius: 999px; margin-top: 11px; }
+  .cmp-dot--no { background: var(--destructive); opacity: 0.85; }
+  .cmp-dot--yes { background: var(--sage); }
+  .cmp-tag { font-family: var(--font-body); font-size: 18px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.55; margin-bottom: 6px; }
+  .cmp-no { font-family: var(--font-body); font-size: 26px; line-height: 1.28; opacity: 0.6; }
+  .cmp-yes { font-family: var(--font-serif); font-style: italic; font-weight: 500; font-size: 30px; line-height: 1.26; color: var(--ink); }
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .duo-card { border-radius: 22px; padding: 36px 38px; box-shadow: 0 24px 50px -34px rgba(0,0,0,0.5); }
+  .duo-card--yes { background: var(--bone); color: var(--ink); }
+  .duo-card--no { background: var(--forest-deep); color: var(--cream); border: 1px solid var(--hairline-dark); }
+  .duo-head { font-family: var(--font-body); font-size: 20px; letter-spacing: 0.24em; text-transform: uppercase; opacity: 0.7; margin-bottom: 22px; display: flex; align-items: center; gap: 14px; }
+  .duo-head::before { content: ""; width: 28px; height: 1px; background: currentColor; opacity: 0.6; }
+  .duo-list { font-family: var(--font-body); font-size: 27px; line-height: 1.55; }
+  .stack-gap > * + * { margin-top: 30px; }
+
+  .scaler { position: absolute; left: 0; top: 0; width: 1080px; height: 1440px; transform-origin: top left; }
+
+  /* ---------- topbar ---------- */
+  .topbar { display: flex; align-items: center; gap: 16px; padding: 0 22px; height: 60px;
+    background: var(--forest-deep); border-bottom: 1px solid var(--hairline-dark); }
+  .icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px;
+    border-radius: 10px; border: 1px solid transparent; background: transparent; color: var(--cream);
+    cursor: pointer; transition: background var(--dur-base, .24s) ease, opacity var(--dur-base, .24s) ease; }
+  .icon-btn:hover { background: rgba(241,236,221,0.08); }
+  .icon-btn:active { transform: translateY(1px); }
+  .icon-btn svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .doc-title { font-family: var(--font-serif); font-style: italic; font-size: 19px; letter-spacing: 0.01em; opacity: 0.92; }
+  .doc-sub { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.4; margin-left: 2px; }
+  .top-right { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+  .pptx-btn { display: inline-flex; align-items: center; gap: 9px; height: 40px; padding: 0 18px; border-radius: 10px;
+    background: var(--bone); color: var(--forest); border: none; cursor: pointer; font-family: var(--font-body);
+    font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; transition: opacity .2s ease; }
+  .pptx-btn:hover { opacity: 0.86; }
+  .pptx-btn:active { transform: translateY(1px); }
+  .pptx-btn svg { width: 17px; height: 17px; stroke: currentColor; stroke-width: 1.9; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .top-sep { width: 1px; height: 26px; background: var(--hairline-dark); margin: 0 6px; }
+
+  /* ---------- work area ---------- */
+  .work { display: grid; grid-template-columns: 196px 1fr; min-height: 0; }
+
+  /* rail */
+  .rail { background: var(--bar-bg); border-right: 1px solid var(--hairline-dark); overflow-y: auto; padding: 16px 16px 40px; }
+  .rail::-webkit-scrollbar { width: 8px; }
+  .rail::-webkit-scrollbar-thumb { background: rgba(241,236,221,0.14); border-radius: 8px; }
+  .rail-title { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; opacity: 0.4; margin: 2px 2px 14px; }
+  .thumb { position: relative; margin-bottom: 13px; cursor: pointer; }
+  .thumb-frame { position: relative; width: 164px; height: calc(164px * 1440 / 1080); border-radius: 5px; overflow: hidden;
+    background: #000; border: 2px solid transparent; transition: border-color .2s ease; }
+  .thumb.active .thumb-frame { border-color: var(--yellow); }
+  .thumb:hover .thumb-frame { border-color: rgba(236,196,78,0.5); }
+  .thumb-num { position: absolute; right: 6px; bottom: 6px; z-index: 4; font-size: 10px; font-variant-numeric: tabular-nums;
+    background: rgba(13,16,11,0.78); color: var(--cream); padding: 2px 8px; border-radius: 999px; letter-spacing: 0.06em; }
+
+  /* stage */
+  .stage-wrap { display: flex; flex-direction: column; min-height: 0;
+    background: radial-gradient(120% 100% at 50% 0%, #1b211a 0%, #11150f 72%); }
+  .stage { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; padding: 26px 64px 12px; position: relative; }
+  .stage-frame { position: relative; border-radius: 16px; overflow: hidden; background: #000;
+    box-shadow: 0 50px 110px -50px rgba(0,0,0,0.9); }
+  .nav { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; border-radius: 999px;
+    background: var(--forest-deep); color: var(--cream); border: 1px solid var(--hairline-dark);
+    display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0;
+    transition: opacity .2s ease, background .2s ease; z-index: 5; }
+  .stage:hover .nav { opacity: 0.9; }
+  .nav:hover { opacity: 1 !important; background: var(--forest); }
+  .nav:disabled { opacity: 0 !important; cursor: default; }
+  .nav svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .nav.prev { left: 20px; } .nav.next { right: 20px; }
+
+  /* progress + counter */
+  .stage-foot { display: flex; align-items: center; gap: 18px; padding: 6px 64px 22px; }
+  .progress { flex: 1; height: 4px; border-radius: 999px; background: rgba(241,236,221,0.14); overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--yellow); border-radius: 999px; transition: width .32s cubic-bezier(0.22,0.61,0.36,1); }
+  .counter { font-size: 13px; letter-spacing: 0.14em; opacity: 0.7; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  /* ---------- grid view ---------- */
+  .grid-view { position: fixed; inset: 0; z-index: 40; background: #0e120c; overflow-y: auto; display: none; }
+  .grid-view.on { display: block; }
+  .grid-head { position: sticky; top: 0; display: flex; align-items: center; gap: 16px; padding: 18px 30px;
+    background: rgba(14,18,12,0.92); backdrop-filter: blur(6px); border-bottom: 1px solid var(--hairline-dark); z-index: 2; }
+  .grid-head .doc-title { font-size: 18px; }
+  .grid-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; padding: 32px 40px 64px; max-width: 1180px; margin: 0 auto; }
+  .tile { position: relative; cursor: pointer; }
+  .tile-frame { position: relative; width: 100%; aspect-ratio: 1080 / 1440; border-radius: 8px; overflow: hidden;
+    background: #000; border: 1px solid var(--hairline-dark); transition: transform .2s ease, border-color .2s ease; }
+  .tile:hover .tile-frame { transform: translateY(-3px); border-color: var(--yellow); }
+  .tile-num { position: absolute; right: 9px; bottom: 9px; z-index: 4; font-size: 11px; font-variant-numeric: tabular-nums;
+    background: rgba(13,16,11,0.78); color: var(--cream); padding: 3px 9px; border-radius: 999px; }
+
+  /* ---------- fullscreen ---------- */
+  .fs-view { position: fixed; inset: 0; z-index: 60; background: #000; display: none; align-items: center; justify-content: center; }
+  .fs-view.on { display: flex; }
+  .fs-close { position: fixed; top: 18px; right: 22px; z-index: 62; }
+  .fs-nav { position: fixed; top: 50%; transform: translateY(-50%); z-index: 62; }
+  .fs-nav.prev { left: 24px; } .fs-nav.next { right: 24px; }
+  .fs-counter { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); z-index: 62;
+    font-size: 13px; letter-spacing: 0.16em; opacity: 0.7; font-variant-numeric: tabular-nums; }
+
+  .hint { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 80;
+    background: var(--forest-deep); color: var(--cream); border: 1px solid var(--hairline-dark);
+    padding: 12px 22px; border-radius: 12px; font-size: 13px; letter-spacing: 0.02em; opacity: 0;
+    pointer-events: none; transition: opacity .3s ease; }
+  .hint.on { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- ============ TOPBAR ============ -->
+  <div class="topbar">
+    <button class="icon-btn" id="backBtn" title="До сітки слайдів" aria-label="Назад">
+      <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <span class="doc-title">автоматизація вбиває довіру</span>
+    <span class="doc-sub">карусель · 08</span>
+    <div class="top-right">
+      <button class="pptx-btn" id="pptxBtn" title="Завантажити .pptx">
+        <svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+        PPTX
+      </button>
+      <div class="top-sep"></div>
+      <button class="icon-btn" id="gridBtn" title="Сітка всіх слайдів" aria-label="Сітка">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      </button>
+      <button class="icon-btn" id="fsBtn" title="Повноекранний режим" aria-label="Повний екран">
+        <svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3m13-5v3a2 2 0 0 1-2 2h-3"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ WORK ============ -->
+  <div class="work">
+    <div class="rail" id="rail">
+      <div class="rail-title">Слайди · 08</div>
+      <div id="railList"></div>
+    </div>
+
+    <div class="stage-wrap">
+      <div class="stage" id="stage">
+        <button class="nav prev" id="navPrev" aria-label="Попередній"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <div class="stage-frame" id="stageFrame"></div>
+        <button class="nav next" id="navNext" aria-label="Наступний"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+      <div class="stage-foot">
+        <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="counter" id="counter">1 / 8</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ GRID VIEW ============ -->
+<div class="grid-view" id="gridView">
+  <div class="grid-head">
+    <button class="icon-btn" id="gridClose" aria-label="Закрити"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <span class="doc-title">автоматизація вбиває довіру</span>
+    <span class="doc-sub">усі слайди</span>
+  </div>
+  <div class="grid-tiles" id="gridTiles"></div>
+</div>
+
+<!-- ============ FULLSCREEN ============ -->
+<div class="fs-view" id="fsView">
+  <button class="icon-btn fs-close" id="fsClose" aria-label="Вихід"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  <button class="icon-btn nav fs-nav prev" id="fsPrev" aria-label="Попередній"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <div class="stage-frame" id="fsFrame" style="box-shadow:none; border-radius:0;"></div>
+  <button class="icon-btn nav fs-nav next" id="fsNext" aria-label="Наступний"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+  <div class="fs-counter" id="fsCounter">1 / 8</div>
+</div>
+
+<!-- offscreen full-size stage used by PPTX export capture -->
+<div id="exportStage" style="position:fixed; left:-99999px; top:0; width:1080px; height:1440px;"></div>
+
+<div class="hint" id="hint"></div>
+
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 1080 1440" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1080" height="1440" fill="#2f3d2e"/>
+  <text x="540" y="700" font-family="Georgia, serif" font-style="italic" font-size="520" fill="#f1ecdd" fill-opacity="0.12" text-anchor="middle">01</text>
+  <text x="540" y="770" font-family="Georgia, serif" font-size="118" fill="#e9e3d2" text-anchor="middle">довіра</text>
+</svg>
+</template>
+
+<script src="images.js"></script>
+<script src="slides.js"></script>
+<script src="pptx-data.js" onerror="window.__noPptx=true"></script>
+<script>
+(function () {
+  const SLIDES = window.CAROUSEL_SLIDES || [];
+  const TOTAL = SLIDES.length;
+  let cur = 0;
+
+  const slideHTML = (i) => `<div class="${SLIDES[i].cls}" style="${SLIDES[i].style}">${SLIDES[i].inner}</div>`;
+
+  function mountScaled(container, i, scale) {
+    container.style.width = Math.round(1080 * scale) + "px";
+    container.style.height = Math.round(1440 * scale) + "px";
+    container.innerHTML = `<div class="scaler" style="transform:scale(${scale})">${slideHTML(i)}</div>`;
+  }
+
+  /* ---------- rail thumbnails ---------- */
+  function buildRail() {
+    const list = document.getElementById("railList");
+    list.innerHTML = "";
+    SLIDES.forEach((s, i) => {
+      const thumb = document.createElement("div");
+      thumb.className = "thumb";
+      thumb.dataset.i = i;
+      const frame = document.createElement("div");
+      frame.className = "thumb-frame";
+      frame.innerHTML = `<div class="scaler" style="transform:scale(${164 / 1080})">${slideHTML(i)}</div>`;
+      const num = document.createElement("span");
+      num.className = "thumb-num";
+      num.textContent = String(i + 1).padStart(2, "0");
+      thumb.appendChild(frame);
+      thumb.appendChild(num);
+      thumb.addEventListener("click", () => go(i));
+      list.appendChild(thumb);
+    });
+  }
+
+  /* ---------- grid tiles ---------- */
+  let gridBuilt = false, gridPopulated = false;
+  function buildGrid() {
+    if (gridBuilt) return;
+    const tiles = document.getElementById("gridTiles");
+    tiles.innerHTML = "";
+    SLIDES.forEach((s, i) => {
+      const tile = document.createElement("div");
+      tile.className = "tile";
+      const frame = document.createElement("div");
+      frame.className = "tile-frame";
+      const num = document.createElement("span");
+      num.className = "tile-num";
+      num.textContent = String(i + 1).padStart(2, "0");
+      tile.appendChild(frame);
+      tile.appendChild(num);
+      tile.addEventListener("click", () => { closeGrid(); go(i); });
+      tiles.appendChild(tile);
+    });
+    gridBuilt = true;
+  }
+  // populate after the grid is visible so clientWidth is valid (no rAF reliance)
+  function populateGrid() {
+    if (gridPopulated) return;
+    const frames = document.querySelectorAll("#gridTiles .tile-frame");
+    let ok = true;
+    frames.forEach((frame, i) => {
+      const w = frame.clientWidth;
+      if (!w) { ok = false; return; }
+      frame.innerHTML = `<div class="scaler" style="transform:scale(${w / 1080})">${slideHTML(i)}</div>`;
+    });
+    if (ok) gridPopulated = true;
+  }
+
+  /* ---------- main stage ---------- */
+  function renderMain() {
+    const stage = document.getElementById("stage");
+    const frame = document.getElementById("stageFrame");
+    const avH = stage.clientHeight - 52;
+    const avW = stage.clientWidth - 128;
+    const scale = Math.max(0.1, Math.min(avW / 1080, avH / 1440));
+    mountScaled(frame, cur, scale);
+    document.getElementById("progressFill").style.width = ((cur + 1) / TOTAL * 100) + "%";
+    document.getElementById("counter").textContent = (cur + 1) + " / " + TOTAL;
+    document.getElementById("navPrev").disabled = cur === 0;
+    document.getElementById("navNext").disabled = cur === TOTAL - 1;
+    document.querySelectorAll(".thumb").forEach((t, k) => {
+      t.classList.toggle("active", k === cur);
+      if (k === cur) {
+        const rail = document.getElementById("rail");
+        const top = t.offsetTop, bottom = top + t.offsetHeight;
+        if (top < rail.scrollTop + 8) rail.scrollTop = top - 8;
+        else if (bottom > rail.scrollTop + rail.clientHeight - 8) rail.scrollTop = bottom - rail.clientHeight + 8;
+      }
+    });
+    if (document.getElementById("fsView").classList.contains("on")) renderFs();
+  }
+
+  function go(i) {
+    cur = Math.max(0, Math.min(TOTAL - 1, i));
+    renderMain();
+  }
+  const next = () => go(cur + 1);
+  const prev = () => go(cur - 1);
+
+  /* ---------- fullscreen ---------- */
+  function renderFs() {
+    const frame = document.getElementById("fsFrame");
+    const scale = Math.min(window.innerWidth / 1080, window.innerHeight / 1440);
+    mountScaled(frame, cur, scale);
+    document.getElementById("fsCounter").textContent = (cur + 1) + " / " + TOTAL;
+  }
+  function openFs() { document.getElementById("fsView").classList.add("on"); renderFs(); }
+  function closeFs() { document.getElementById("fsView").classList.remove("on"); }
+
+  /* ---------- grid open/close ---------- */
+  function openGrid() { buildGrid(); document.getElementById("gridView").classList.add("on"); populateGrid(); }
+  function closeGrid() { document.getElementById("gridView").classList.remove("on"); }
+
+  /* ---------- hint ---------- */
+  let hintT;
+  function showHint(msg) {
+    const h = document.getElementById("hint");
+    h.textContent = msg; h.classList.add("on");
+    clearTimeout(hintT); hintT = setTimeout(() => h.classList.remove("on"), 2600);
+  }
+
+  /* ---------- PPTX export ---------- */
+  window.__exportShow = function (n) {
+    const es = document.getElementById("exportStage");
+    es.style.left = "0";
+    es.style.zIndex = "99999";
+    es.style.background = "#000";
+    es.innerHTML = slideHTML(n);
+  };
+  function exportPPTX() {
+    if (window.__PPTX_B64) {
+      try {
+        const bin = atob(window.__PPTX_B64);
+        const bytes = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        const blob = new Blob([bytes], { type: "application/vnd.openxmlformats-officedocument.presentationml.presentation" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "Карусель — автоматизація вбиває довіру.pptx";
+        document.body.appendChild(a); a.click();
+        setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+        showHint("Завантаження .pptx розпочато — слайди редаговані");
+      } catch (e) { showHint("Помилка експорту .pptx"); }
+    } else {
+      showHint("Файл .pptx ще готується. Спробуйте за мить.");
+    }
+  }
+
+  /* ---------- events ---------- */
+  document.getElementById("navPrev").addEventListener("click", prev);
+  document.getElementById("navNext").addEventListener("click", next);
+  document.getElementById("gridBtn").addEventListener("click", openGrid);
+  document.getElementById("backBtn").addEventListener("click", openGrid);
+  document.getElementById("gridClose").addEventListener("click", closeGrid);
+  document.getElementById("fsBtn").addEventListener("click", openFs);
+  document.getElementById("fsClose").addEventListener("click", closeFs);
+  document.getElementById("fsPrev").addEventListener("click", prev);
+  document.getElementById("fsNext").addEventListener("click", next);
+  document.getElementById("pptxBtn").addEventListener("click", exportPPTX);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      if (document.getElementById("fsView").classList.contains("on")) return closeFs();
+      if (document.getElementById("gridView").classList.contains("on")) return closeGrid();
+    }
+    if (document.getElementById("gridView").classList.contains("on")) return;
+    if (e.key === "ArrowRight") { next(); }
+    else if (e.key === "ArrowLeft") { prev(); }
+  });
+
+  let rT;
+  window.addEventListener("resize", () => { clearTimeout(rT); rT = setTimeout(() => {
+    renderMain();
+    if (document.getElementById("fsView").classList.contains("on")) renderFs();
+  }, 120); });
+
+  /* ---------- boot ---------- */
+  function boot() {
+    if (!window.CAROUSEL_SLIDES) { setTimeout(boot, 30); return; }
+    buildRail();
+    renderMain();
+    // re-fit once fonts settle
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(renderMain);
+    setTimeout(renderMain, 300);
+  }
+  boot();
+})();
+</script>
+</body>
+</html>
