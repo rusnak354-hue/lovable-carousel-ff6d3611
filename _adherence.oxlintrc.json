@@ -1,0 +1,333 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/brand/**",
+              "components/core/**",
+              "ui_kits/carousel/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Calmius Sans Low|Evolventa|Rozovii Chulok|Cormorant Garamond))/i]",
+        "message": "Font not provided by the design system. Available: Calmius Sans Low, Evolventa, Rozovii Chulok, Cormorant Garamond."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|tone|children|key|ref|className|style|children)$/]",
+        "message": "<Badge> doesn't accept that prop. Declared props: variant, tone, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:chip|bracket|outline)$/]",
+        "message": "<Badge> variant must be one of 'chip' | 'bracket' | 'outline'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:auto|dark|light)$/]",
+        "message": "<Badge> tone must be one of 'auto' | 'dark' | 'light'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|size|pill|disabled|children|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: variant, size, pill, disabled, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:primary|secondary|outline|ghost)$/]",
+        "message": "<Button> variant must be one of 'primary' | 'secondary' | 'outline' | 'ghost'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<Button> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute > JSXIdentifier[name!=/^(?:variant|children|key|ref|className|style|children)$/]",
+        "message": "<Card> doesn't accept that prop. Declared props: variant, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:soft|sharp|forest)$/]",
+        "message": "<Card> variant must be one of 'soft' | 'sharp' | 'forest'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CounterPill'] > JSXAttribute > JSXIdentifier[name!=/^(?:index|total|key|ref|className|style|children)$/]",
+        "message": "<CounterPill> doesn't accept that prop. Declared props: index, total."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Input'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|hint|key|ref|className|style|children)$/]",
+        "message": "<Input> doesn't accept that prop. Declared props: label, hint."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NumberedPill'] > JSXAttribute > JSXIdentifier[name!=/^(?:number|tone|children|key|ref|className|style|children)$/]",
+        "message": "<NumberedPill> doesn't accept that prop. Declared props: number, tone, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='NumberedPill'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:light|dark)$/]",
+        "message": "<NumberedPill> tone must be one of 'light' | 'dark'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='QuoteBox'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|key|ref|className|style|children)$/]",
+        "message": "<QuoteBox> doesn't accept that prop. Declared props: children."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "Badge": {
+        "replaces": []
+      },
+      "Button": {
+        "replaces": []
+      },
+      "Card": {
+        "replaces": []
+      },
+      "CounterPill": {
+        "replaces": []
+      },
+      "Input": {
+        "replaces": []
+      },
+      "NumberedPill": {
+        "replaces": []
+      },
+      "QuoteBox": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--accent",
+      "--accent-deep",
+      "--bg-card",
+      "--bg-light",
+      "--bg-light-pure",
+      "--bg-page",
+      "--bg-raised",
+      "--bg-surface",
+      "--bone",
+      "--border-hairline",
+      "--border-strong",
+      "--border-subtle",
+      "--border-thin",
+      "--cream",
+      "--destructive",
+      "--dur-base",
+      "--dur-fast",
+      "--dur-slow",
+      "--ease-quiet",
+      "--font-body",
+      "--font-display",
+      "--font-script",
+      "--font-serif",
+      "--forest",
+      "--forest-deep",
+      "--fw-bold",
+      "--fw-medium",
+      "--fw-regular",
+      "--hairline-dark",
+      "--hairline-light",
+      "--ink",
+      "--lh-body",
+      "--lh-display",
+      "--lh-snug",
+      "--lh-tight",
+      "--light-grad-glow",
+      "--milk",
+      "--olive",
+      "--olive-light",
+      "--on-dark-bg",
+      "--on-dark-card",
+      "--on-dark-surface",
+      "--on-dark-text",
+      "--overlay-forest",
+      "--radius-chip",
+      "--radius-lg",
+      "--radius-md",
+      "--radius-none",
+      "--radius-pill",
+      "--radius-plate",
+      "--radius-sm",
+      "--radius-xs",
+      "--ring",
+      "--sage",
+      "--sage-mid",
+      "--shadow-card",
+      "--shadow-cta",
+      "--shadow-quote",
+      "--shadow-soft",
+      "--slide-body",
+      "--slide-eyebrow",
+      "--slide-hero",
+      "--slide-quote",
+      "--slide-title",
+      "--space-0",
+      "--space-1",
+      "--space-10",
+      "--space-2",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-7",
+      "--space-8",
+      "--space-9",
+      "--text-2xl",
+      "--text-3xl",
+      "--text-4xl",
+      "--text-base",
+      "--text-body",
+      "--text-lg",
+      "--text-md",
+      "--text-muted",
+      "--text-on-forest",
+      "--text-on-forest-muted",
+      "--text-sm",
+      "--text-strong",
+      "--text-xl",
+      "--text-xs",
+      "--track-body",
+      "--track-caps",
+      "--track-display",
+      "--track-eyebrow",
+      "--track-label",
+      "--track-tight",
+      "--track-wide"
+    ],
+    "tokenKinds": {
+      "--forest-deep": "color",
+      "--forest": "color",
+      "--sage": "color",
+      "--sage-mid": "color",
+      "--olive": "color",
+      "--olive-light": "color",
+      "--bone": "color",
+      "--cream": "color",
+      "--milk": "color",
+      "--ink": "color",
+      "--destructive": "color",
+      "--hairline-dark": "color",
+      "--hairline-light": "color",
+      "--bg-light": "color",
+      "--bg-light-pure": "color",
+      "--light-grad-glow": "color",
+      "--bg-page": "color",
+      "--bg-surface": "color",
+      "--bg-card": "color",
+      "--bg-raised": "color",
+      "--text-strong": "font",
+      "--text-body": "font",
+      "--text-muted": "font",
+      "--text-on-forest": "font",
+      "--text-on-forest-muted": "font",
+      "--accent": "color",
+      "--accent-deep": "color",
+      "--border-subtle": "color",
+      "--border-strong": "color",
+      "--ring": "color",
+      "--on-dark-bg": "color",
+      "--on-dark-surface": "color",
+      "--on-dark-text": "font",
+      "--on-dark-card": "color",
+      "--font-display": "font",
+      "--font-serif": "font",
+      "--font-body": "font",
+      "--font-script": "font",
+      "--fw-regular": "font",
+      "--fw-medium": "font",
+      "--fw-bold": "font",
+      "--track-display": "spacing",
+      "--track-tight": "spacing",
+      "--track-body": "spacing",
+      "--track-eyebrow": "spacing",
+      "--track-label": "spacing",
+      "--track-caps": "spacing",
+      "--track-wide": "spacing",
+      "--lh-display": "font",
+      "--lh-tight": "font",
+      "--lh-snug": "font",
+      "--lh-body": "font",
+      "--text-xs": "font",
+      "--text-sm": "font",
+      "--text-base": "font",
+      "--text-md": "font",
+      "--text-lg": "font",
+      "--text-xl": "font",
+      "--text-2xl": "font",
+      "--text-3xl": "font",
+      "--text-4xl": "font",
+      "--slide-eyebrow": "spacing",
+      "--slide-body": "spacing",
+      "--slide-quote": "spacing",
+      "--slide-title": "spacing",
+      "--slide-hero": "spacing",
+      "--space-0": "spacing",
+      "--space-1": "spacing",
+      "--space-2": "spacing",
+      "--space-3": "spacing",
+      "--space-4": "spacing",
+      "--space-5": "spacing",
+      "--space-6": "spacing",
+      "--space-7": "spacing",
+      "--space-8": "spacing",
+      "--space-9": "spacing",
+      "--space-10": "spacing",
+      "--radius-none": "radius",
+      "--radius-chip": "radius",
+      "--radius-plate": "radius",
+      "--radius-xs": "radius",
+      "--radius-sm": "radius",
+      "--radius-md": "radius",
+      "--radius-lg": "radius",
+      "--radius-pill": "radius",
+      "--border-hairline": "spacing",
+      "--border-thin": "spacing",
+      "--shadow-soft": "shadow",
+      "--shadow-card": "shadow",
+      "--shadow-quote": "shadow",
+      "--shadow-cta": "shadow",
+      "--overlay-forest": "other",
+      "--ease-quiet": "other",
+      "--dur-fast": "other",
+      "--dur-base": "other",
+      "--dur-slow": "other"
+    },
+    "fontFamilies": [
+      "Calmius Sans Low",
+      "Cormorant Garamond",
+      "Evolventa",
+      "Rozovii Chulok"
+    ]
+  }
+}
