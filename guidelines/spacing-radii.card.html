@@ -1,0 +1,27 @@
+<!-- @dsCard group="Spacing" viewport="700x180" name="Radii & shadows" subtitle="One 22px plate radius · 14px chips · 999px counter only · soft long shadows" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font-body); background: var(--milk); color: var(--ink); }
+  .wrap { padding: 24px 30px; display: flex; gap: 26px; align-items: center; }
+  .item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .box { width: 96px; height: 64px; background: var(--bone); }
+  .lab { font-size: 11px; opacity: 0.65; text-align: center; }
+  .r-chip { border-radius: var(--radius-chip); }
+  .r-plate { border-radius: var(--radius-plate); }
+  .r-pill { border-radius: var(--radius-pill); }
+  .sh { box-shadow: var(--shadow-card); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="item"><div class="box r-chip"></div><span class="lab">chip · 14px</span></div>
+  <div class="item"><div class="box r-plate"></div><span class="lab">plate · 22px<br>(all content)</span></div>
+  <div class="item"><div class="box r-pill" style="width:64px;height:34px"></div><span class="lab">counter · 999<br>(footer only)</span></div>
+  <div class="item"><div class="box r-plate sh"></div><span class="lab">shadow-card</span></div>
+</div>
+</body>
+</html>

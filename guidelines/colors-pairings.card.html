@@ -1,0 +1,29 @@
+<!-- @dsCard group="Colors" viewport="700x150" name="Text on surface" subtitle="Contrast pairings — light on forest, ink on cream" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font-body); }
+  .row { display: grid; grid-template-columns: 1fr 1fr 1fr; height: 150px; }
+  .cell { padding: 22px; box-sizing: border-box; display: flex; flex-direction: column; gap: 8px; justify-content: center; }
+  .big { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 22px; letter-spacing: -0.005em; }
+  .small { font-size: 13px; opacity: 0.8; }
+  .acc { font-family: var(--font-serif); font-style: italic; font-size: 18px; }
+</style>
+</head>
+<body>
+<div class="row">
+  <div class="cell" style="background:var(--forest);color:var(--cream)">
+    <span class="big">Forest</span><span class="acc">cream text</span><span class="small">--text-on-forest</span>
+  </div>
+  <div class="cell" style="background:var(--sage);color:var(--cream)">
+    <span class="big">Sage</span><span class="acc">cream text</span><span class="small">secondary panel</span>
+  </div>
+  <div class="cell" style="background:var(--cream);color:var(--ink)">
+    <span class="big">Cream</span><span class="acc" style="color:var(--sage)">ink + sage</span><span class="small">--text-strong</span>
+  </div>
+</div>
+</body>
+</html>

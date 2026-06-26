@@ -1,0 +1,31 @@
+<!-- @dsCard group="Spacing" viewport="700x150" name="Spacing scale" subtitle="8px base — slide edge padding is space-8 (64px)" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font-body); background: var(--milk); color: var(--ink); }
+  .wrap { padding: 22px 30px; }
+  .meta { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.5; margin-bottom: 16px; }
+  .scale { display: flex; align-items: flex-end; gap: 14px; }
+  .col { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .bar { background: var(--sage); border-radius: 2px; width: 26px; }
+  .lab { font-size: 10px; opacity: 0.6; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="meta">8px base · 4 · 8 · 16 · 24 · 32 · 48 · 64</div>
+  <div class="scale">
+    <div class="col"><div class="bar" style="height:8px"></div><span class="lab">1·4</span></div>
+    <div class="col"><div class="bar" style="height:16px"></div><span class="lab">2·8</span></div>
+    <div class="col"><div class="bar" style="height:24px"></div><span class="lab">4·16</span></div>
+    <div class="col"><div class="bar" style="height:36px"></div><span class="lab">5·24</span></div>
+    <div class="col"><div class="bar" style="height:48px"></div><span class="lab">6·32</span></div>
+    <div class="col"><div class="bar" style="height:64px"></div><span class="lab">7·48</span></div>
+    <div class="col"><div class="bar" style="height:80px;background:var(--forest)"></div><span class="lab">8·64</span></div>
+  </div>
+</div>
+</body>
+</html>

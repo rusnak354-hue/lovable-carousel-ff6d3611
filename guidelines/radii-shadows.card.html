@@ -1,0 +1,18 @@
+<!-- @dsCard group="Spacing" viewport="700x180" name="Radii & shadows" subtitle="bimodal corners (2–4px sharp · 999px pill) · soft long shadows" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin:0; background:var(--milk); color:var(--ink); font-family:var(--font-body); padding:24px 32px; box-sizing:border-box; height:180px; display:flex; align-items:center; gap:26px; flex-wrap:wrap; }
+  .item { display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .box { width:84px; height:60px; background:var(--bone); }
+  .nm { font-size:11px; opacity:0.7; letter-spacing:0.04em; }
+</style></head>
+<body>
+  <div class="item"><div class="box" style="border-radius:2px"></div><span class="nm">xs · 2px</span></div>
+  <div class="item"><div class="box" style="border-radius:4px"></div><span class="nm">sm · 4px</span></div>
+  <div class="item"><div class="box" style="border-radius:18px"></div><span class="nm">lg · 18px</span></div>
+  <div class="item"><div class="box" style="border-radius:999px"></div><span class="nm">pill</span></div>
+  <div class="item"><div class="box" style="border-radius:4px;box-shadow:var(--shadow-soft)"></div><span class="nm">shadow-soft</span></div>
+  <div class="item"><div class="box" style="border-radius:4px;box-shadow:var(--shadow-card)"></div><span class="nm">shadow-card</span></div>
+</body></html>

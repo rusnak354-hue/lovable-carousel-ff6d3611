@@ -1,0 +1,31 @@
+<!-- @dsCard group="Brand" viewport="700x260" name="Quote box & numbered pill" subtitle="The pull-quote and ordered-list signatures" -->
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; font-family: var(--font-body); background: var(--sage); }
+  .wrap { padding: 26px 30px; display: flex; flex-direction: column; gap: 18px; }
+  /* scale the slide-scale elements down for the card */
+  .qb { transform: scale(0.62); transform-origin: top left; }
+  .qb-wrap { height: 100px; overflow: hidden; }
+  .np { transform: scale(0.72); transform-origin: top left; }
+  .np-wrap { height: 70px; overflow: hidden; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="qb-wrap">
+    <div class="qb">
+      <div class="quote-box" style="max-width:980px">Масштаб починається, коли ти закриваєш ноутбук, а система генерує гроші.</div>
+    </div>
+  </div>
+  <div class="np-wrap">
+    <div class="np">
+      <div class="numbered-pill" style="max-width:760px"><span class="numbered-pill__num">1</span><span class="numbered-pill__text">Закрий ноутбук — система працює без тебе.</span></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
