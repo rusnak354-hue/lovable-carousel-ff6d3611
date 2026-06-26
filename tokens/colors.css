@@ -1,0 +1,56 @@
+/* ============================================================
+   Ksenia Rusnak — Color system
+   "Quiet Luxury / Forest" — deep evergreens, sage, warm bone/cream.
+   Muted, editorial, never neon. Light text on forest; ink on cream.
+   ============================================================ */
+
+:root {
+  /* ---- Brand greens (dark → light) ---- */
+  --forest-deep: #1f2a1e;   /* darkest panel / overlay base */
+  --forest: #2f3d2e;        /* primary brand green */
+  --sage: #5e7558;          /* secondary green / accents, quote rule */
+  --sage-mid: #87987a;      /* muted ghost numerals, chips */
+  --olive: #a3b193;         /* soft highlight green */
+  --olive-light: #c4cdb4;   /* faint dividers on dark */
+
+  /* ---- Warm neutrals (bone family) ---- */
+  --bone: #e9e3d2;          /* card / quote-box surface */
+  --cream: #f1ecdd;         /* light text on forest, surfaces */
+  --milk: #f6f2e7;          /* page background (warm off-white) */
+  --ink: #1a1f18;           /* near-black green-tinted text */
+
+  /* ---- Functional ---- */
+  --destructive: #8c3a2e;   /* muted brick, used sparingly */
+  --hairline-dark: rgba(241, 236, 221, 0.18);  /* hairline on forest */
+  --hairline-light: rgba(26, 31, 24, 0.12);    /* hairline on cream */
+
+  /* ---- Light-slide variation (DESIGN_RULES §6) ---- */
+  --bg-light: #fffbf3;          /* light-slide background */
+  --bg-light-pure: #ffffff;     /* alt light background */
+  --light-grad-glow: #4d946d;   /* green radial glow on light slides */
+
+  /* ---- Semantic aliases (light / page context) ---- */
+  --bg-page: var(--milk);
+  --bg-surface: var(--cream);
+  --bg-card: var(--bone);
+  --bg-raised: #ffffff;
+
+  --text-strong: var(--ink);
+  --text-body: var(--forest);
+  --text-muted: var(--sage);
+  --text-on-forest: var(--cream);
+  --text-on-forest-muted: rgba(241, 236, 221, 0.78);
+
+  --accent: var(--sage);
+  --accent-deep: var(--forest);
+
+  --border-subtle: var(--hairline-light);
+  --border-strong: rgba(26, 31, 24, 0.28);
+  --ring: var(--sage);
+
+  /* ---- Dark (on-forest) surface context ---- */
+  --on-dark-bg: var(--forest);
+  --on-dark-surface: var(--forest-deep);
+  --on-dark-text: var(--cream);
+  --on-dark-card: var(--bone);
+}

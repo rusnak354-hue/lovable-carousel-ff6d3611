@@ -1,0 +1,53 @@
+/* ============================================================
+   Ksenia Rusnak — Typography tokens
+   3 voices:
+   - Display  → Calmius Sans, UPPERCASE, tight, the loud headline
+   - Serif    → Cormorant Garamond italic, the soft "quiet luxury" accent
+   - Body/UI  → Evolventa, calm humanist sans, generous letter-spacing
+   ============================================================ */
+
+:root {
+  /* ---- Families ---- */
+  --font-display: "Calmius Sans Low", "Evolventa", sans-serif;
+  --font-serif: "Cormorant Garamond", "Times New Roman", serif;
+  --font-body: "Evolventa", "Manrope", system-ui, sans-serif;
+  --font-script: "Rozovii Chulok", "Cormorant Garamond", cursive;
+
+  /* ---- Weights ---- */
+  --fw-regular: 400; /* @kind font */
+  --fw-medium: 500; /* @kind font */
+  --fw-bold: 700; /* @kind font */
+
+  /* ---- Tracking (letter-spacing) ---- */
+  --track-display: -0.005em;   /* tight headline */
+  --track-tight: -0.01em;      /* serif accent */
+  --track-body: 0.01em;
+  --track-eyebrow: 0.04em;     /* eyebrow / body emphasis */
+  --track-label: 0.22em;       /* bracket tags */
+  --track-caps: 0.32em;        /* spaced brand marks */
+  --track-wide: 0.5em;         /* vertical brand rail */
+
+  /* ---- Line heights ---- */
+  --lh-display: 0.95; /* @kind font */
+  --lh-tight: 1.05; /* @kind font */
+  --lh-snug: 1.3; /* @kind font */
+  --lh-body: 1.4; /* @kind font */
+
+  /* ---- Type scale (web/UI px) ---- */
+  --text-xs: 13px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-md: 18px;
+  --text-lg: 22px;
+  --text-xl: 28px;
+  --text-2xl: 36px;
+  --text-3xl: 48px;
+  --text-4xl: 64px;
+
+  /* ---- Slide scale (1080×1440 canvas px) ---- */
+  --slide-eyebrow: 28px;
+  --slide-body: 34px;
+  --slide-quote: 36px;
+  --slide-title: 88px;
+  --slide-hero: 96px;
+}

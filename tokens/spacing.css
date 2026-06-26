@@ -1,0 +1,57 @@
+/* ============================================================
+   Ksenia Rusnak — Spacing, radii, shadows
+   Calm, airy. Radii are mostly SMALL (2–4px) — sharp editorial
+   corners — OR full pills (999px). Almost nothing in between.
+   Shadows are soft, low, long: a quiet drop, never a hard box.
+   ============================================================ */
+
+:root {
+  /* ---- Spacing scale (8px base) ---- */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;     /* slide edge padding */
+  --space-9: 96px;
+  --space-10: 128px;
+
+  /* ---- Radii ----
+     DESIGN_RULES §3: content plates use ONE radius (22px). Chips 14px.
+     Counter pill stays a compact 999px. Old sharp/full-pill plate radii
+     (xs/sm/lg) are retained only for legacy/non-plate use. */
+  --radius-none: 0;
+  --radius-chip: 14px;   /* sage-chip / eyebrow labels */
+  --radius-plate: 22px;  /* ALL content plates: cards, quote-box, pills, CTA, photo */
+  --radius-xs: 2px;    /* legacy */
+  --radius-sm: 4px;    /* legacy */
+  --radius-md: 6px;    /* legacy */
+  --radius-lg: 18px;   /* legacy */
+  --radius-pill: 999px;
+
+  /* ---- Borders / hairlines ---- */
+  --border-hairline: 1px;
+  --border-thin: 1.5px;
+
+  /* ---- Shadows (soft, long, low-opacity) ---- */
+  --shadow-soft: 0 18px 40px -28px rgba(26, 31, 24, 0.45);
+  --shadow-card: 0 30px 60px -36px rgba(26, 31, 24, 0.35);
+  --shadow-quote: 0 30px 60px -30px rgba(0, 0, 0, 0.25);
+  --shadow-cta: 0 30px 60px -30px rgba(0, 0, 0, 0.55);
+
+  /* ---- Image overlays (forest darkening gradient) ---- */
+  --overlay-forest: linear-gradient(
+    180deg,
+    rgba(31, 42, 30, 0.35) 0%,
+    rgba(31, 42, 30, 0.78) 100%
+  ); /* @kind other */
+
+  /* ---- Motion ---- */
+  --ease-quiet: cubic-bezier(0.22, 0.61, 0.36, 1); /* @kind other */
+  --dur-fast: 160ms; /* @kind other */
+  --dur-base: 240ms; /* @kind other */
+  --dur-slow: 420ms; /* @kind other */
+}
